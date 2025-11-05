@@ -35,7 +35,7 @@ class Signup extends Component {
     event.preventDefault()
     const {username, password} = this.state
     const userDetails = {username, password}
-    const url = 'http://localhost:5000/signup/'
+    const url = 'https://portfolio-server-seven-kappa.vercel.app/signup/'
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
