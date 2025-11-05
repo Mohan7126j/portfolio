@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 let db = null;
-const dbPath = path.join(__dirname, "data.db");
+const dbPath = path.join(process.cwd(), "temp", "data.db");
 
 // initialize database once (serverless best practice)
 const initDb = async () => {
