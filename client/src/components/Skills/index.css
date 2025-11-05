@@ -1,0 +1,40 @@
+.skill-bg-container{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill-container{
+    display: flex;
+    flex-direction: row;
+    padding: 100px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.skill-item{
+    width: 20%;
+    margin-right: 10px;
+    list-style: none;
+    text-align: center;
+}
+
+.skill-image{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.skill-image-container{
+    width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+    .skill-image-container{
+        width: 80%;
+    }
+}

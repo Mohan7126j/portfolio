@@ -1,0 +1,42 @@
+
+.intro-pic{
+    width: 180px;
+}
+
+.name{
+    font-size: 55px;
+    font-weight: bolder;
+}
+
+.intro-mohan-img{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    
+}
+@media (min-width: 768px) {
+    .intro-container{
+        display:flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+}
+
+@media (max-width: 767px) {
+    .intro-container{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .name{
+        font-size: 40px;
+        font-weight: bolder;
+    }
+}

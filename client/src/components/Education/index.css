@@ -1,0 +1,41 @@
+.education-bg-container{
+    margin-top: 60px;
+}
+
+.education-title{
+    padding-left: 100px;
+}
+
+.edu-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 100px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 20px;
+}
+
+.edu-content{
+    margin-left: 30px;
+}
+
+.edu-pic{
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 768px){
+    .edu-pic{
+        display: none;
+    }
+    .edu-container{
+        padding: 30px;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 20px;
+    }
+
+    .edu-content{
+        margin-left: 0px;
+    }
+}

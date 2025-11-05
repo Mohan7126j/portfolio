@@ -1,0 +1,23 @@
+.project-bg-container{
+    display: flex;
+    flex-direction: column;
+    justify-content:center ;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.project-title{
+    text-align: center;
+}
+
+.carousel-size{
+    width: 60%;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+        .carousel-size{
+            width: 85%;
+            margin-top: 10px;
+        }
+}
