@@ -1,79 +1,94 @@
 const express = require("express");
-const cors = require("cors"); 
+const cors = require("cors");
 const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const app = express();
+const serverless = require("serverless-http");
 
-app.use(cors()); 
-app.use(express.json())
+const app = express();
+app.use(cors());
+app.use(express.json());
 
 let db = null;
-
 const dbPath = path.join(__dirname, "data.db");
-const initialDbAndServer = async () =>{
-    try{
-            db = await open({
-            filename: dbPath,
-            driver: sqlite3.Database
-        })
-        app.listen(5000, ()=>{
-        console.log("Server Running at https//:localhost:5000/")
+
+// initialize database once (serverless best practice)
+const initDb = async () => {
+  if (!db) {
+    db = await open({
+      filename: dbPath,
+      driver: sqlite3.Database,
     });
+  }
+};
+initDb();
 
+// ------------------- Routes -------------------
 
-    }catch(error){
-        console.log(error.message);
-        process.exit(1);
+// Signup
+app.post("/api/signup", async (req, res) => {
+  await initDb();
+  const { username, password } = req.body;
+
+  try {
+    const existingUser = await db.get(
+      `SELECT username FROM user WHERE username = ?`,
+      [username]
+    );
+
+    if (existingUser) {
+      return res.status(401).json({ error_msg: "User Already Exists" });
     }
-}
 
-initialDbAndServer()
-
-app.post("/signup/", async (request, response) =>{
-    const {username, password} = request.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const isUserExixts = await db.get(`SELECT username FROM user WHERE username = '${username}'`)
-    if(isUserExixts === undefined){
-        const addUserQuery = `INSERT INTO user VALUES('${username}', '${hashedPassword}');`
-        await db.run(addUserQuery)
-        response.send({
-            "msg" : "created"
-        })
-    }else{
-        response.status(401)
-        response.send({
-            "error_msg": "User Already Exists"
-        });
-    }
-    
-})
+    await db.run(`INSERT INTO user (username, password) VALUES (?, ?)`, [
+      username,
+      hashedPassword,
+    ]);
 
-app.post("/login/", async (request, response) => {
-    const {username, password} = request.body
-    const user = await db.get(`SELECT * FROM user WHERE username = '${username}'`)
-    if(user === undefined){
-        response.status(401)
-        response.send({
-            "error_msg" : "User Not Found"
-        })
-    }else{
-        const hashedPassword = user.password
-        isPasswordCorrect = await bcrypt.compare(password, hashedPassword)
+    res.json({ msg: "User Created" });
+  } catch (error) {
+    console.error("Signup error:", error);
+    res.status(500).json({ error_msg: "Server Error" });
+  }
+});
 
-        if(isPasswordCorrect){
-            // genrate jwtToken
-            const jwtToken = await jwt.sign(username, "screat key");
-            response.send({
-                "jwtToken" : jwtToken
-            });
-        }else{
-            response.status(401)
-            response.send({
-                "error_msg" : "Password incorrect"
-            })
-        }
+// Login
+app.post("/api/login", async (req, res) => {
+  await initDb();
+  const { username, password } = req.body;
+
+  try {
+    const user = await db.get(
+      `SELECT * FROM user WHERE username = ?`,
+      [username]
+    );
+
+    if (!user) {
+      return res.status(401).json({ error_msg: "User Not Found" });
     }
-})
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(401).json({ error_msg: "Password Incorrect" });
+    }
+
+    const jwtToken = jwt.sign({ username }, "secret_key");
+    res.json({ jwtToken });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ error_msg: "Server Error" });
+  }
+});
+
+// Root
+app.get("/api", (req, res) => {
+  res.send("Backend running on Vercel 🚀");
+});
+
+// Export as serverless handler
+module.exports = app;
+module.exports.handler = serverless(app);
