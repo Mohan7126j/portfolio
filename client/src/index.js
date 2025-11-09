@@ -6,6 +6,9 @@ import App from "./App";
 import './index.css';
 
 class A extends Component {
+  componentDidMount() {
+    document.title = "Portfolio";
+  }
   render() {
     return (
     <BrowserRouter>

@@ -30,7 +30,7 @@ input, textarea {
     margin-top: 15px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 10px;
+    font-size: 14px;
     outline: none;
 }
 
@@ -74,6 +74,13 @@ input:focus, textarea:focus {
     width: 40%; 
     margin-bottom: 10px; 
     border-radius: 10px; 
+}
+
+.g-recaptcha {
+  
+  transform: scale(0.8);
+  transform-origin: center;
+
 }
 
 @media screen and (max-width: 768px) {

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Menu, User, House } from 'lucide-react';
+import { Menu, User, House, FolderOpenDot, X  } from 'lucide-react';
 import {FaCode, FaGraduationCap, FaEnvelope} from "react-icons/fa";
 import "./index.css";
 
@@ -75,7 +75,7 @@ class NavBar extends Component {
   render() {
     const { themeName, toggleFun } = this.props;
     const isDark = themeName === "dark";
-    const { active } = this.state;
+    const { active, isOpen } = this.state;
 
     return (
       <nav>
@@ -137,7 +137,7 @@ class NavBar extends Component {
 
         <div className={`mobile-nav-bar ${isDark ? "dark" : "light"}`}>
                     <button onClick={this.toggleSidebar} className="hamburger-btn display-end button">
-                        <Menu />
+                        {isOpen ?  <X /> : <Menu />}
                     </button>
                     {/* Dark Overlay (click to close) */}
         {this.state.isOpen && (
@@ -158,13 +158,13 @@ class NavBar extends Component {
             <li className="nav-list"  onClick={this.toggleSidebar}><FaGraduationCap className="icon" /><span 
                 className={active === "education" ? "active" : ""}
                 onClick={() => this.scrollTo("education")}>Education</span></li>
-            <li className="nav-list"  onClick={this.toggleSidebar}><FaEnvelope className="icon"  /><span 
+            <li className="nav-list"  onClick={this.toggleSidebar}><FolderOpenDot  className="icon"  /><span 
                 className={active === "projects" ? "active" : ""}
                 onClick={() => this.scrollTo("projects")}>Projects</span></li>
             <li className="nav-list"  onClick={this.toggleSidebar}><FaEnvelope className="icon"  /><span 
             className={active === "contact" ? "active" : ""}
             onClick={() => this.scrollTo("contact")}>Contact</span></li>
-            <li className="nav-list" onClick={toggleFun}>{isDark ? "Light Mode" : "Dark Mode"}</li>
+            <li className="nav-list" onClick={toggleFun}><span onClick={this.toggleSidebar}>{isDark ? "Light Mode" : "Dark Mode"}</span></li>
           </ul>
         </div>
         </div>
