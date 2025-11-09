@@ -1,6 +1,5 @@
 import { Component, createRef } from "react";
 import emailjs from "@emailjs/browser";
-import ReCAPTCHA from "react-google-recaptcha";
 import contact_us from "../../images/contact_us.jpg";
 import "./index.css";
 
@@ -35,11 +34,7 @@ class Contact extends Component {
       return;
     }
 
-    const token = this.recaptchaRef.current.getValue();
-    if (!token) {
-      alert("Please verify that you're not a robot!");
-      return;
-    }
+    
 
     if (this.state.sending || this.state.sent) return;
 
@@ -106,11 +101,6 @@ class Contact extends Component {
               rows="4"
               placeholder="Type your message..."
               required
-            />
-            <ReCAPTCHA
-              className="g-recaptcha"
-              ref={this.recaptchaRef}
-              sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
             />
             <button
               type="submit"
