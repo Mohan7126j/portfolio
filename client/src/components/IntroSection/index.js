@@ -9,7 +9,7 @@ class IntroSection extends Component{
         const {themeName} = this.props
         const isDark = themeName === "dark"
         return(
-            <div className="intro-container">
+            <div className="intro-container" id="intro">
                 <div>
                     <h4>Hello,</h4>
                     <h1 className="name">I'm Mohan</h1>

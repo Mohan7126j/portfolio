@@ -1,23 +1,58 @@
-.project-bg-container{
-    display: flex;
-    flex-direction: column;
-    justify-content:center ;
-    align-items: center;
-    margin-top: 30px;
+.project-bg-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
 }
 
-.project-title{
-    text-align: center;
+.project-heading {
+  margin-bottom: 30px;
 }
 
-.carousel-size{
-    width: 60%;
-    margin-top: 10px;
+.scroll-gallery {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  z-index: 1;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scroll-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+.scroll-gallery:hover .scroll-track {
+  animation-play-state: running;
+}
+
+.scroll-track img {
+  width: 400px;
+  height: 250px;
+  border-radius: 10px;
+  user-select: none;
+  pointer-events: auto; /* enable drag grip */
+  flex-shrink: 0;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 @media screen and (max-width: 768px) {
-        .carousel-size{
-            width: 85%;
-            margin-top: 10px;
-        }
+  .scroll-track img {
+    width: 300px;
+    height: 180px;
+  }
 }

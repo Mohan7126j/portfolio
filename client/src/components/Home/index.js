@@ -27,7 +27,7 @@ class Home extends Component{
         const {theme} = this.state
         const isDark = theme === "dark";
         return (
-            <div className={`home-container ${isDark ? "light" : "dark"}`}> 
+            <div className={`home-container ${isDark ? "dark" : "light"}`}> 
                 <NavBar themeName={theme} toggleFun = {this.toggleTheme}/>
                 <IntroSection  themeName={theme} />
                 <About/>

@@ -6,7 +6,7 @@ import "./index.css"
 class Education extends Component{
     render(){
         return(
-            <div className="education-bg-container">
+            <div className="education-bg-container" id="education">
                 <div className="education-title">
                     <h3>My Education</h3>
                 </div>

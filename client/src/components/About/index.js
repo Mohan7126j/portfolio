@@ -8,7 +8,7 @@ class About extends Component{
     };
     render(){
         return(
-            <div className="about-bg-container">
+            <div className="about-bg-container" id="about">
                 <div className="about-container">
                     
                     <div>
