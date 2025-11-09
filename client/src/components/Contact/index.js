@@ -50,7 +50,6 @@ class Contact extends Component {
 
       alert("✅ Email sent successfully! We’ll get back to you soon.");
       form.reset();
-      this.recaptchaRef.current.reset();
 
       // Store in cookie for 7 days
       this.setCookie("contactSent", true, 7);
